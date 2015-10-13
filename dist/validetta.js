@@ -2,7 +2,7 @@
  * Validetta (http://lab.hasanaydogdu.com/validetta/)
  * Version 1.0.1
  * Licensed under MIT (https://github.com/hsnayd/validetta/blob/master/LICENCE)
- * Copyright 2013-2015 Hasan Aydoğdu - http://www.hasanaydogdu.com
+ * Copyright 2013-2015 Hasan Aydoğdu - http://www.hasanaydogdu.com 
  */
 /*eslint-env es6:false*/
 
@@ -27,11 +27,8 @@
     required  : 'This field is required.',
     email     : 'Your E-mail address appears to be invalid.',
     number    : 'You can enter only numbers in this field.',
-    numMax    : 'Please enter a number less than {max}.',
-    numMin    : 'Please enter a number greater than {min}.',
-    numRange  : 'Please enter a number greater than {min} and less than {max}.',
-    maxLength : 'Maximum {count} characters allowed.',
-    minLength : 'Minimum {count} characters allowed.',
+    maxLength : 'Maximum {count} characters allowed!',
+    minLength : 'Minimum {count} characters allowed!',
     maxChecked  : 'Maximum {count} options allowed.',
     minChecked  : 'Please select minimum {count} options.',
     maxSelected : 'Maximum {count} selection allowed.',
@@ -48,8 +45,8 @@
     showErrorMessages : true, // If you dont want to display error messages set this options false
     inputWrapperClass : 'form-field', // Class of the parent container we want to append the error message to
     errorTemplateClass : 'form-inline-message', // Class of the error message string
-    errorClass : 'form-field-invalid', // Class added to parent of each failing validation field
-    validClass : 'form-field-valid', // Same for valid validation
+    errorClass : 'form-input-error', // Class added to parent of each failing validation field
+    validClass : 'form-input-valid', // Same for valid validation
     realTime: false, // To enable real-time form control, set this option true.
     onValid: function(){}, // This function to be called when the user submits the form and there is no error.
     onError: function(){}, // This function to be called when the user submits the form and there are some errors
@@ -84,7 +81,6 @@
         case 'checkbox' : return tmp.el.checked || messages.required;
         case 'radio' : return this.radio.call(self, tmp.el) || messages.required;
         case 'select-multiple' : return tmp.val !== null || messages.required;
-        case 'select-one' : return tmp.val !== null || messages.required;
         default : return tmp.val !== '' || messages.required;
       }
     },
@@ -96,28 +92,7 @@
 
     // Number check
     number: function(tmp) {
-      if (RNUMBER.test(tmp.val)) {
-        var message;
-        var val = parseInt(tmp.val, 10);
-        var max = tmp.el.max ? parseInt(tmp.el.max, 10) : Infinity;
-        var min = tmp.el.min ? parseInt(tmp.el.min, 10) : -Infinity;
-
-        // check attributes and assign error messages, auto-validate if neither is applied to element
-        if (tmp.el.max && tmp.el.min) {
-          message = messages.numRange.replace('{min}', tmp.el.min).replace('{max}', tmp.el.max);
-        } else if (tmp.el.max) {
-          message = messages.numMax.replace('{max}', tmp.el.max);
-        } else if (tmp.el.min) {
-          message = messages.numMin.replace('{min}', tmp.el.min);
-        } else {
-          return true;
-        }
-
-        return (val >= min && val <= max) ? true : message;
-
-      } else {
-        return messages.number;
-      }
+      return RNUMBER.test(tmp.val) || messages.number;
     },
 
     // Minimum length check
@@ -298,6 +273,7 @@
      * @return {mixed}
      */
     init: function(event) {
+      event.preventDefault();
       // Reset error messages from all elements
       this.reset(FIELDS);
       // Start control each elements
