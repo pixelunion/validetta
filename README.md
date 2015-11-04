@@ -23,6 +23,9 @@ var options = {
   disableNative: true
   // By default the plugin will apply a 'novalidate' attribute to the target form
 
+  validationClass: 'form-input',
+  // Class of elements to be validated
+
   inputWrapperClass: 'form-field',
   // Class of the parent container we want to append the error message to
 
