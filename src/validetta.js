@@ -42,6 +42,7 @@
     showErrorMessage : true, // If you dont want to display error messages set this options false
     showMultiple: false, // whether or not to show all errors on an input at once
     disableNative: true, // whether or not to show all errors on an input at once
+    validationClass: 'form-input', // Class of elements to be validated
     inputWrapperClass : 'form-field', // Class of the parent container we want to append the error message to
     errorTemplateClass : 'form-inline-message', // Class of the error message string
     errorClass : 'form-field-invalid', // Class added to parent of each failing validation field
@@ -274,21 +275,21 @@
       // Handle submit event
       $(this.form).submit(function(event) {
         // fields to be controlled transferred to global variable
-        FIELDS = event.currentTarget.getElementsByClassName('form-input');
+        FIELDS = event.currentTarget.getElementsByClassName(this.options.validationClass);
         return self.init(event);
       });
       // real-time option control
       if (this.options.realTime === true) {
         // handle change event for form elements (without checkbox)
-        $(this.form).find('.form-input').not('[type=checkbox]').on('change', function(event) {
+        $(this.form).find('.' + this.options.validationClass).not('[type=checkbox]').on('change', function(event) {
           // field to be controlled transferred to global variable
           FIELDS = $(this);
           return self.init(event);
         });
         // handle click event for checkboxes
-        $(this.form).find('.form-input[type=checkbox]').on('click', function(event) {
+        $(this.form).find('.' + this.options.validationClass + '[type=checkbox]').on('click', function(event) {
           // fields to be controlled transferred to global variable
-          FIELDS = self.form.querySelectorAll('.form-input[type=checkbox][name="' + this.name + '"]');
+          FIELDS = self.form.querySelectorAll('.' + this.options.validationClass + '[type=checkbox][name="' + this.name + '"]');
           return self.init(event);
         });
       }
