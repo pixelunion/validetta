@@ -275,7 +275,7 @@
       // Handle submit event
       $(this.form).submit(function(event) {
         // fields to be controlled transferred to global variable
-        FIELDS = event.currentTarget.getElementsByClassName(this.options.validationClass);
+        FIELDS = event.currentTarget.getElementsByClassName(self.options.validationClass);
         return self.init(event);
       });
       // real-time option control
@@ -283,13 +283,13 @@
         // handle change event for form elements (without checkbox)
         $(this.form).find('.' + this.options.validationClass).not('[type=checkbox]').on('change', function(event) {
           // field to be controlled transferred to global variable
-          FIELDS = $(this);
+          FIELDS = $(self);
           return self.init(event);
         });
         // handle click event for checkboxes
         $(this.form).find('.' + this.options.validationClass + '[type=checkbox]').on('click', function(event) {
           // fields to be controlled transferred to global variable
-          FIELDS = self.form.querySelectorAll('.' + this.options.validationClass + '[type=checkbox][name="' + this.name + '"]');
+          FIELDS = self.form.querySelectorAll('.' + self.options.validationClass + '[type=checkbox][name="' + self.name + '"]');
           return self.init(event);
         });
       }
