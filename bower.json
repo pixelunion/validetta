@@ -1,7 +1,7 @@
 {
   "name": "validetta",
   "description": "A tiny jquery plugin for validate your forms",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/PixelUnion/validetta",
   "author": {
     "name": "Hasan Aydoğdu",
