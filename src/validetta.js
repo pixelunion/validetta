@@ -178,8 +178,6 @@
     //Checkbox check
     maxChecked: function(tmp, self) {
       var cont = $(self.form.querySelectorAll('input[type=checkbox][name="' + tmp.el.name + '"]'));
-      // we dont want to show an error message for all checkboxes which have same "name"
-      if (cont.index(tmp.el) !== 0) return;
       var count =  cont.filter(':checked').length;
       if (count === 0) return;
       return count <= tmp.arg || messages.maxChecked.replace('{count}', tmp.arg);
@@ -187,7 +185,6 @@
 
     minChecked: function(tmp, self) {
       var cont = $(self.form.querySelectorAll('input[type=checkbox][name="' + tmp.el.name + '"]'));
-      if (cont.index(tmp.el) !== 0) return; // same as above
       var count =  cont.filter(':checked').length;
       return count >= tmp.arg || messages.minChecked.replace('{count}', tmp.arg);
     },
